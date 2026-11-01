@@ -14,7 +14,7 @@ st.set_page_config(
 # Load trained CNN model
 @st.cache_resource
 def load_cnn_model():
-    return tf.keras.models.load_model("/content/currency_cnn.keras")
+   return tf.keras.models.load_model("currency_cnn.keras")
 
 model = load_cnn_model()
 
