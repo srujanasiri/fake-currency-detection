@@ -81,4 +81,4 @@ else:
 
 st.divider()
 
-st.caption("Mini Project | CNN-Based Counterfeit Currency Detection")                                                                                                   give the modified code that look my app more attractive
+st.caption("Mini Project | CNN-Based Counterfeit Currency Detection")                                                                                                  
