@@ -1,3 +1,4 @@
+
 import streamlit as st
 import tensorflow as tf
 import numpy as np
@@ -10,12 +11,48 @@ st.set_page_config(
     layout="centered"
 )
 
+# Beautiful Background Design
+st.markdown("""
+<style>
+.stApp {
+    background:
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(180, 190, 255, 0.45),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 90% 85%,
+            rgba(170, 220, 255, 0.45),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #eef2ff,
+            #f8faff,
+            #e6f0ff
+        );
+    background-attachment: fixed;
+}
+
+[data-testid="stHeader"] {
+    background: transparent;
+}
+
+[data-testid="stMain"] {
+    background: transparent;
+}
+</style>
+""", unsafe_allow_html=True)
+
+
 # Load trained CNN model
 @st.cache_resource
 def load_cnn_model():
-   return tf.keras.models.load_model("currency_cnn.keras")
+    return tf.keras.models.load_model("currency_cnn.keras")
 
 model = load_cnn_model()
+
 
 # Application heading
 st.title("💵 Currency Note Verification System")
@@ -26,6 +63,7 @@ st.write(
 )
 
 st.divider()
+
 
 # Image upload
 st.subheader("Upload Currency Image")
@@ -81,4 +119,6 @@ else:
 
 st.divider()
 
-st.caption("Mini Project | CNN-Based Counterfeit Currency Detection")                                                                                                  
+st.caption("Mini Project | CNN-Based Counterfeit Currency Detection")
+
+    
