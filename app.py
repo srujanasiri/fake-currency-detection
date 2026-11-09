@@ -118,7 +118,7 @@ model = load_cnn_model()
 # Application heading
 st.markdown("""
 <div class="main-title">
-    💵 Currency Shield
+    💵 Currency Note Verification System
 </div>
 
 <div class="subtitle">
@@ -226,13 +226,7 @@ if uploaded_file is not None:
         st.markdown("#### 📈 Prediction Analysis")
 
         st.progress(p_real, text="Genuine Score")
-        st.progress(p_fake, text="Counterfeit Score")
-
-        st.caption(
-            "Note: This is an experimental CNN-based prediction, "
-            "not an official currency authentication."
-        )
-
+        st.progress(p_fake, text="Counterfeit Score")       
 else:
     st.info("👆 Please upload a currency image to begin detection.")
 
@@ -257,7 +251,7 @@ with st.expander("📌 How to Use"):
 # Footer
 st.markdown("""
 <div class="footer">
-    💵 <b>CURRENCY SHIELD</b>
+    💵 <b> Currency Note Verification System</b>
     <br><br>
     CNN-Based Counterfeit Currency Detection
     <br>
