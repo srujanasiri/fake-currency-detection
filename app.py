@@ -6,7 +6,7 @@ from PIL import Image
 
 # Page configuration
 st.set_page_config(
-    page_title="NoteSure AI - Currency Verification",
+    page_title="Currency Note Authentication System",
     page_icon="💵",
     layout="centered"
 )
@@ -161,7 +161,7 @@ model = load_cnn_model()
 # Application heading
 st.markdown("""
 <div class="main-title">
-    💵 NoteSure AI
+    💵Currency Note Authentication System
 </div>
 
 <div class="subtitle">
@@ -303,7 +303,7 @@ with st.expander("📌 How to Use"):
 # Footer
 st.markdown("""
 <div class="footer">
-    💵 <b>NOTESURE AI</b>
+    💵 <b>Currency Note Authentication</b>
     <br><br>
     CNN-Based Counterfeit Currency Detection
     <br>
