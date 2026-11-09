@@ -1,3 +1,4 @@
+
 import streamlit as st
 import tensorflow as tf
 import numpy as np
@@ -5,7 +6,7 @@ from PIL import Image
 
 # Page configuration
 st.set_page_config(
-    page_title="Currency Note Verification",
+    page_title="NoteSure AI - Currency Verification",
     page_icon="💵",
     layout="centered"
 )
@@ -14,8 +15,48 @@ st.set_page_config(
 st.markdown("""
 <style>
 
+/* Elegant Indian currency-inspired background */
 .stApp {
-    background: linear-gradient(135deg, #e0eaff, #f8faff, #dce8ff);
+    background:
+        radial-gradient(
+            circle at 10% 15%,
+            rgba(34, 139, 94, 0.13),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 90% 85%,
+            rgba(218, 184, 105, 0.16),
+            transparent 35%
+        ),
+        repeating-linear-gradient(
+            45deg,
+            rgba(30, 100, 65, 0.025) 0px,
+            rgba(30, 100, 65, 0.025) 2px,
+            transparent 2px,
+            transparent 12px
+        ),
+        linear-gradient(
+            135deg,
+            #edf7ed,
+            #fffdf4,
+            #e5f1e7
+        );
+
+    background-attachment: fixed;
+}
+
+/* Subtle Rupee watermark */
+.stApp::before {
+    content: "₹";
+    position: fixed;
+    top: 15%;
+    right: 5%;
+    font-size: 380px;
+    font-weight: 800;
+    color: rgba(24, 100, 65, 0.035);
+    transform: rotate(-15deg);
+    pointer-events: none;
+    z-index: 0;
 }
 
 [data-testid="stHeader"] {
@@ -30,35 +71,37 @@ st.markdown("""
 /* Main heading */
 .main-title {
     text-align: center;
-    color: #173b70;
-    font-size: 36px;
+    color: #145c3b;
+    font-size: 38px;
     font-weight: 800;
     padding: 15px;
+    letter-spacing: 1px;
 }
 
 .subtitle {
     text-align: center;
-    color: #526783;
+    color: #526b5c;
     font-size: 16px;
     margin-bottom: 25px;
+    line-height: 1.8;
 }
 
 /* Section headings */
 h2, h3 {
-    color: #173b70 !important;
+    color: #145c3b !important;
 }
 
 /* Upload box */
 [data-testid="stFileUploader"] {
-    background: rgba(255,255,255,0.8);
+    background: rgba(255,255,255,0.85);
     padding: 15px;
     border-radius: 15px;
-    border: 2px dashed #7399d4;
+    border: 2px dashed #78a98b;
 }
 
 /* Buttons */
 .stButton > button {
-    background: linear-gradient(90deg, #2563eb, #173b70);
+    background: linear-gradient(90deg, #218052, #145c3b);
     color: white;
     border-radius: 12px;
     border: none;
@@ -68,7 +111,7 @@ h2, h3 {
 }
 
 .stButton > button:hover {
-    background: #102b52;
+    background: #10472e;
     color: white;
     transform: scale(1.02);
 }
@@ -98,7 +141,7 @@ h2, h3 {
 /* Footer */
 .footer {
     text-align: center;
-    color: #64748b;
+    color: #526b5c;
     font-size: 13px;
     padding: 20px;
 }
@@ -118,7 +161,7 @@ model = load_cnn_model()
 # Application heading
 st.markdown("""
 <div class="main-title">
-    💵 Currency Note Verification System
+    💵 NoteSure AI
 </div>
 
 <div class="subtitle">
@@ -130,6 +173,7 @@ st.markdown("""
 
 st.divider()
 
+
 # Welcome section
 st.markdown("### 🛡️ Welcome to Currency Verification")
 
@@ -140,6 +184,7 @@ st.write(
 )
 
 st.divider()
+
 
 # Image upload
 st.markdown("### 📤 Upload Your Currency Image")
@@ -161,8 +206,11 @@ if uploaded_file is not None:
 
     st.write("")
 
-    if st.button("🔍 Detect Currency", type="primary",
-                 use_container_width=True):
+    if st.button(
+        "🔍 Detect Currency",
+        type="primary",
+        use_container_width=True
+    ):
 
         with st.spinner("🤖 AI is analyzing your currency note..."):
 
@@ -226,16 +274,19 @@ if uploaded_file is not None:
         st.markdown("#### 📈 Prediction Analysis")
 
         st.progress(p_real, text="Genuine Score")
-        st.progress(p_fake, text="Counterfeit Score")       
+        st.progress(p_fake, text="Counterfeit Score")
+
 else:
     st.info("👆 Please upload a currency image to begin detection.")
 
+
 st.divider()
+
 
 # About section
 with st.expander("ℹ️ About This Project"):
     st.write(
-        "Currency Shield is a CNN-based counterfeit currency "
+        "NoteSure AI is a CNN-based counterfeit currency "
         "detection application developed using Python, "
         "TensorFlow and Streamlit."
     )
@@ -248,15 +299,16 @@ with st.expander("📌 How to Use"):
     4. View the CNN prediction and scores.
     """)
 
+
 # Footer
 st.markdown("""
 <div class="footer">
-    💵 <b> Currency Note Verification System</b>
+    💵 <b>NOTESURE AI</b>
     <br><br>
     CNN-Based Counterfeit Currency Detection
     <br>
     Mini Project | Artificial Intelligence & Deep Learning
     <br><br>
-    © 2026 Currency Shield
+    © 2026 NoteSure AI
 </div>
 """, unsafe_allow_html=True)
