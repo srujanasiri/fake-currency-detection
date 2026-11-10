@@ -1,5 +1,3 @@
-
-
 import streamlit as st
 import tensorflow as tf
 import numpy as np
@@ -227,15 +225,15 @@ if uploaded_file is not None:
                     model.predict(img_array, verbose=0)[0][0]
                 )
 
-                # Training labels: Fake = 0, Genuine = 1
-                p_real = prediction
-                p_fake = 1 - prediction
+                # REVERSED prediction mapping
+                p_fake = prediction
+                p_real = 1 - prediction
 
             st.divider()
 
             st.markdown("### 📊 Detection Results")
 
-            # Display prediction
+            # Display reversed prediction
             if p_real >= 0.5:
 
                 st.markdown("""
@@ -260,7 +258,7 @@ if uploaded_file is not None:
                 </div>
                 """, unsafe_allow_html=True)
 
-            # Display scores
+            # Display reversed scores
             col1, col2 = st.columns(2)
 
             with col1:
@@ -320,3 +318,4 @@ st.markdown("""
     © 2026 NoteSure AI
 </div>
 """, unsafe_allow_html=True)
+
