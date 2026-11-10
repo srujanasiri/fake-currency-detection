@@ -221,12 +221,10 @@ if uploaded_file is not None:
 
             # Original CNN prediction
             prediction = float(
-                model.predict(img_array, verbose=0)[0][0]
-            )
+               prediction = float(model.predict(img_array, verbose=0)[0][0])
 
-            p_real = prediction
-            p_fake = 1 - prediction
-
+                p_fake = prediction
+                p_real = 1 - prediction
         st.divider()
 
         st.markdown("### 📊 Detection Results")
@@ -235,7 +233,7 @@ if uploaded_file is not None:
 
             st.markdown("""
             <div class="result-box genuine">
-                ✅ GENUINE CURRENCY
+                ✅ COUNTERFIET CURRENCY
                 <br>
                 <span style="font-size:15px;">
                     CNN model predicts this note as genuine.
@@ -247,7 +245,7 @@ if uploaded_file is not None:
 
             st.markdown("""
             <div class="result-box fake">
-                ⚠️ COUNTERFEIT CURRENCY
+                ⚠️ GENUINE CURRENCY
                 <br>
                 <span style="font-size:15px;">
                     CNN model predicts this note as counterfeit.
