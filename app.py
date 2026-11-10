@@ -222,9 +222,8 @@ if uploaded_file is not None:
             # Original CNN prediction
             prediction = float(
                prediction = float(model.predict(img_array, verbose=0)[0][0]))
-
-                p_fake = prediction
-                p_real = 1 - prediction
+            p_fake = prediction
+            p_real = 1 - prediction
         st.divider()
 
         st.markdown("### 📊 Detection Results")
