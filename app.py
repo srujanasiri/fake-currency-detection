@@ -1,4 +1,5 @@
 
+
 import streamlit as st
 import tensorflow as tf
 import numpy as np
@@ -155,13 +156,14 @@ h2, h3 {
 def load_cnn_model():
     return tf.keras.models.load_model("currency_cnn.keras")
 
+
 model = load_cnn_model()
 
 
 # Application heading
 st.markdown("""
 <div class="main-title">
-    💵Currency Note Authentication System
+    💵 Currency Note Authentication System
 </div>
 
 <div class="subtitle">
@@ -196,82 +198,91 @@ uploaded_file = st.file_uploader(
 
 if uploaded_file is not None:
 
-    image = Image.open(uploaded_file).convert("RGB")
+    try:
+        image = Image.open(uploaded_file).convert("RGB")
 
-    st.image(
-        image,
-        caption="🖼️ Uploaded Currency Note",
-        use_container_width=True
-    )
+        st.image(
+            image,
+            caption="🖼️ Uploaded Currency Note",
+            use_container_width=True
+        )
 
-    st.write("")
+        st.write("")
 
-    if st.button(
-        "🔍 Detect Currency",
-        type="primary",
-        use_container_width=True
-    ):
+        if st.button(
+            "🔍 Detect Currency",
+            type="primary",
+            use_container_width=True
+        ):
 
-        with st.spinner("🤖 AI is analyzing your currency note..."):
+            with st.spinner("🤖 AI is analyzing your currency note..."):
 
-            # Original image preprocessing
-            img = image.resize((128, 128))
-            img_array = np.array(img, dtype=np.float32) / 255.0
-            img_array = np.expand_dims(img_array, axis=0)
+                # Image preprocessing
+                img = image.resize((128, 128))
+                img_array = np.array(img, dtype=np.float32) / 255.0
+                img_array = np.expand_dims(img_array, axis=0)
 
-            # Original CNN prediction
-            prediction = float(
-               prediction = float(model.predict(img_array, verbose=0)[0][0]))
-            p_fake = prediction
-            p_real = 1 - prediction
-        st.divider()
+                # CNN prediction
+                prediction = float(
+                    model.predict(img_array, verbose=0)[0][0]
+                )
 
-        st.markdown("### 📊 Detection Results")
+                # Training labels: Fake = 0, Genuine = 1
+                p_real = prediction
+                p_fake = 1 - prediction
 
-        if p_real > 0.5:
+            st.divider()
 
-            st.markdown("""
-            <div class="result-box genuine">
-                ✅ COUNTERFIET CURRENCY
-                <br>
-                <span style="font-size:15px;">
-                    CNN model predicts this note as genuine.
-                </span>
-            </div>
-            """, unsafe_allow_html=True)
+            st.markdown("### 📊 Detection Results")
 
-        else:
+            # Display prediction
+            if p_real >= 0.5:
 
-            st.markdown("""
-            <div class="result-box fake">
-                ⚠️ GENUINE CURRENCY
-                <br>
-                <span style="font-size:15px;">
-                    CNN model predicts this note as counterfeit.
-                </span>
-            </div>
-            """, unsafe_allow_html=True)
+                st.markdown("""
+                <div class="result-box genuine">
+                    ✅ GENUINE CURRENCY
+                    <br>
+                    <span style="font-size:15px;">
+                        CNN model predicts this note as genuine.
+                    </span>
+                </div>
+                """, unsafe_allow_html=True)
 
-        # Display scores
-        col1, col2 = st.columns(2)
+            else:
 
-        with col1:
-            st.metric(
-                "🟢 Genuine Score",
-                f"{p_real * 100:.2f}%"
-            )
+                st.markdown("""
+                <div class="result-box fake">
+                    ⚠️ COUNTERFEIT CURRENCY
+                    <br>
+                    <span style="font-size:15px;">
+                        CNN model predicts this note as counterfeit.
+                    </span>
+                </div>
+                """, unsafe_allow_html=True)
 
-        with col2:
-            st.metric(
-                "🔴 Counterfeit Score",
-                f"{p_fake * 100:.2f}%"
-            )
+            # Display scores
+            col1, col2 = st.columns(2)
 
-        # Visual score bars
-        st.markdown("#### 📈 Prediction Analysis")
+            with col1:
+                st.metric(
+                    "🟢 Genuine Score",
+                    f"{p_real * 100:.2f}%"
+                )
 
-        st.progress(p_real, text="Genuine Score")
-        st.progress(p_fake, text="Counterfeit Score")
+            with col2:
+                st.metric(
+                    "🔴 Counterfeit Score",
+                    f"{p_fake * 100:.2f}%"
+                )
+
+            # Visual score bars
+            st.markdown("#### 📈 Prediction Analysis")
+
+            st.progress(p_real, text="Genuine Score")
+            st.progress(p_fake, text="Counterfeit Score")
+
+    except Exception as e:
+        st.error(f"Unable to process the image: {e}")
 
 else:
     st.info("👆 Please upload a currency image to begin detection.")
